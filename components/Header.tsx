@@ -4,10 +4,10 @@ import Image from "next/image";
 
 export default function Header({size}: { size?: 'sm' | undefined }) {
   return (
-    <div className="flex flex-col gap-4 items-center mt-4">
+    <div className="flex flex-col gap-4 items-center pt-4">
       <div className="flex gap-8 justify-center items-center">
         <Image src={Logo} alt="Waruwa Logo"
-               className={clsx('border dark:border-neutral-700', {
+               className={clsx({
                  'h-[100px] w-[130px] rounded-xl': !size,
                  'h-[60px] w-[60px] rounded-lg': size === 'sm'
                })}

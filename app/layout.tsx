@@ -3,15 +3,22 @@ import './globals.css'
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'http://localhost:3000'
+const { SITE_NAME } = process.env;
+const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  : 'http://localhost:3000';
 
 export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: 'Next.js and Supabase Starter Kit',
-  description: 'The fastest way to build apps with Next.js and Supabase',
-}
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: SITE_NAME!,
+    template: `%s | ${SITE_NAME}`
+  },
+  robots: {
+    follow: true,
+    index: true
+  }
+};
 
 export default function RootLayout({
   children,
