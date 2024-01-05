@@ -8,6 +8,9 @@ export const setProductsStore = (data: CacheProduct[]) => {
 
 export const getProductsStore = (): CacheProduct[] => {
   let result = [];
+
+  if(typeof window === 'undefined') return []
+
   const products: string | null = window.localStorage.getItem('wa_cart_product')
 
   if(products) {
