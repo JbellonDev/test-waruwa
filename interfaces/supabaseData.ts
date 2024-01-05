@@ -3,12 +3,12 @@ export interface Contact {
   id_contact: number
   identificacion: string
   name: string
-  mobile: string | null | undefined
-  principal_phone: string | null | undefined
-  secondary_phone: string | null | undefined
-  payment_term_days: string | null | undefined
+  mobile?: string | null
+  principal_phone?: string | null
+  secondary_phone?: string | null
+  payment_term_days?: string | null
   price_list_id: number
-  created_at: Date
+  created_at?: Date
 }
 
 export interface Product {
@@ -29,4 +29,20 @@ export interface ProductPrice {
   id_price_list: number
   price: number
   created_at: Date
+}
+
+export interface AlegraDataToSend {
+  products: AlegraDataToSendProduct[]
+  userId: number
+}
+
+export interface AlegraDataToSendProduct {
+  id: number
+  quantity: number
+  observation: string
+  price: number
+}
+
+export interface CacheProduct extends AlegraDataToSendProduct {
+  name: string
 }
