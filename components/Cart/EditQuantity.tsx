@@ -44,7 +44,7 @@ export function EditQuantity({item}: { item: CacheProduct }) {
 
   const updateQuantity = (type: string, quantity: number = item.quantity) => {
     const result = checkMinValue(quantity, MIN_QUANTITY, type)
-console.log((item.quantity !== quantity && !type.length))
+
     if(result !== quantity || (item.quantity !== quantity && !type.length)) {
       const updatedProduct = {
         ...item,
