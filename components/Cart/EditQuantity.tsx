@@ -5,7 +5,7 @@ import {CacheProduct} from "@/interfaces/supabaseData";
 import {getProductsStore, setOneProduct} from "@/utils/storage";
 import useAppContext from "@/components/Context";
 import {useState} from "react";
-import {MIN_QUANTITY} from "@/constants/global";
+import {MIN_QUANTITY, VALUE_TO_SUM_SUBTRACT} from "@/constants/global";
 
 const clasNameButton = "hover:cursor-pointer ease flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80 select-none"
 
@@ -16,12 +16,12 @@ function checkMinValue(number: number, minValue: number, type: string) {
   if(isNaN(numberToCheck)) return result
 
   if(!!type.length) {
-    if (numberToCheck > 0.5 && type === 'minus') {
-      result = Number((numberToCheck - 0.1).toFixed(1))
+    if (numberToCheck > MIN_QUANTITY && type === 'minus') {
+      result = Number((numberToCheck - VALUE_TO_SUM_SUBTRACT).toFixed(1))
     }
 
-    result = type === 'plus' ? Number((numberToCheck + 0.1).toFixed(1)) : result
-  } else if (numberToCheck >= 0.5) {
+    result = type === 'plus' ? Number((numberToCheck + VALUE_TO_SUM_SUBTRACT).toFixed(1)) : result
+  } else if (numberToCheck >= MIN_QUANTITY) {
     result = numberToCheck
   }
 
