@@ -1,13 +1,17 @@
+import clsx from 'clsx';
+
 interface Props {
   amount: number;
+  className: string;
   currencyCode?: string;
 }
 
 const Price = ({
                  amount,
                  currencyCode = 'COP',
+                 className
                }: Props) => (
-  <p suppressHydrationWarning={true}>
+  <p suppressHydrationWarning={true} className={className}>
     {`${new Intl.NumberFormat(undefined, {
       style: 'currency',
       currency: currencyCode,
