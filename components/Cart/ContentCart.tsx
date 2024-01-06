@@ -1,35 +1,64 @@
 'use client';
 
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-// import Price from '@/components/price';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect} from 'react';
 import EmptyCart from "@/components/Cart/EmptyCart";
-import {CacheProduct} from "@/interfaces/supabaseData";
-import DeleteItemButton from "@/components/Cart/DeleteItemButton";
+import {CacheProduct, Contact, ProductPrice} from "@/interfaces/supabaseData";
 import Price from "@/components/Cart/Price";
-import {EditItemQuantityButton} from "@/components/Cart/EditButton";
-import {getProductsStore} from "@/utils/storage";
-// import { EditItemQuantityButton } from './edit-item-quantity-button';
+import {addProduct, getProductsStore} from "@/utils/storage";
+import useAppContext from "@/components/Context";
+import {createClient} from "@/utils/supabase/client";
+import ItemCart from "@/components/Cart/ItemCart";
 
-interface  Props {
-  products: CacheProduct[]
+interface Props {
+  contactData: Contact
 }
 
-export default function ContentCart({ products }: Props) {
-  const [total, setTotal] = useState(0)
-
-  const setQuantity = (item: CacheProduct, qty: number) => {
-    item.quantity = qty
-  }
+export default function ContentCart({ contactData }: Props) {
+  const { products, productSelect, setProducts } = useAppContext()
 
   useEffect(() => {
-    console.warn('Estoy entrando')
-  //   // Open cart modal when quantity changes.
-  //   // if (cart?.totalQuantity !== quantityRef.current) {
-  //   //   // Always update the quantity reference
-  //   //   quantityRef.current = cart?.totalQuantity;
-  //   // }
-  }, [products]);
+    const fetchPriceProducts = async () => {
+      if(productSelect) {
+        const { data }: { data: ProductPrice[] | null  } = await createClient().from('alegra_price_items').select('*').eq('id_alegra_item', productSelect.id_alegra)
+        if(data) {
+          let productPrice = data?.find(product => product.id_price_list === contactData.price_list_id )
+
+          if(!productPrice && contactData.price_list_id !== 10) {
+            productPrice = data?.find(product => product.id_price_list === 10)
+          }
+          const cacheObj: CacheProduct = {
+            id: productSelect.id,
+            name: productSelect.name,
+            quantity: 0.5,
+            price: productPrice!.price,
+            observation: ''
+          }
+
+          addProduct(cacheObj)
+          const cacheProducts = getProductsStore();
+          setProducts(cacheProducts)
+        }
+      }
+    }
+
+    fetchPriceProducts()
+
+  }, [productSelect]);
+
+  useEffect(() => {
+    const cartProducts = getProductsStore()
+    setProducts(cartProducts)
+  }, []);
+
+  const getTotal = (): number => {
+    const sumWithInitial = products.reduce(
+      (accumulator, currentValue) => accumulator + (currentValue.price * currentValue.quantity),
+      0,
+    );
+
+    return sumWithInitial
+  }
+
 
   return (
     <>
@@ -38,69 +67,30 @@ export default function ContentCart({ products }: Props) {
           <div className="flex h-full flex-col justify-between overflow-hidden p-1">
             <ul className="flex-grow overflow-auto py-4">
               {products.map(item => (
-                  <li
-                    key={item.id}
-                    className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
-                  >
-                    <div className="relative flex w-full flex-row justify-between px-1 py-4">
-                      <div
-                        className="z-30 flex flex-row space-x-4"
-                      >
-                        <div>
-                          <DeleteItemButton id={item.id}/>
-                        </div>
-                        <div className="flex flex-1 flex-col text-base">
-                              <span className="leading-tight">
-                                {item.name}
-                              </span>
-                        </div>
-                      </div>
-                      <div className="flex h-16 flex-col justify-between">
-                        <Price
-                          className="flex justify-end space-y-2 text-right text-sm"
-                          amount={item.price}
-                        />
-                        <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
-                          <EditItemQuantityButton item={item} type="minus" setQty={setQuantity} />
-                          <p className="w-6 text-center">
-                            <span className="w-full text-sm">{(item.quantity).toFixed(1)}</span>
-                          </p>
-                          <EditItemQuantityButton item={item} type="plus" setQty={setQuantity} />
-                        </div>
-                      </div>
-                    </div>
-                  </li>
+                <li
+                  key={item.id}
+                  className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
+                >
+                  <ItemCart {...item} />
+                </li>
                 )
               )}
             </ul>
-          {/*  <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">*/}
-          {/*    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">*/}
-          {/*      <p>Taxes</p>*/}
-          {/*      <Price*/}
-          {/*        className="text-right text-base text-black dark:text-white"*/}
-          {/*        amount={cart.cost.totalTaxAmount.amount}*/}
-          {/*        currencyCode={cart.cost.totalTaxAmount.currencyCode}*/}
-          {/*      />*/}
-          {/*    </div>*/}
-          {/*    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">*/}
-          {/*      <p>Shipping</p>*/}
-          {/*      <p className="text-right">Calculated at checkout</p>*/}
-          {/*    </div>*/}
-          {/*    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">*/}
-          {/*      <p>Total</p>*/}
-          {/*      <Price*/}
-          {/*        className="text-right text-base text-black dark:text-white"*/}
-          {/*        amount={cart.cost.totalAmount.amount}*/}
-          {/*        currencyCode={cart.cost.totalAmount.currencyCode}*/}
-          {/*      />*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*  <a*/}
-          {/*    href={cart.checkoutUrl}*/}
-          {/*    className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"*/}
-          {/*  >*/}
-          {/*    Proceed to Checkout*/}
-          {/*  </a>*/}
+            <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
+              <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                <p>Total</p>
+                <Price
+                  className="text-right text-base text-black dark:text-white"
+                  amount={getTotal()}
+                />
+              </div>
+            </div>
+            <a
+              href="#"
+              className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+            >
+              Haz tu compra
+            </a>
           </div>
         )}
       </div>
