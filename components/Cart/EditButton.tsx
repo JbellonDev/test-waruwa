@@ -12,10 +12,10 @@ export function EditItemQuantityButton({item, type}: { item: CacheProduct; type:
     const quantity = item.quantity
     let result = 0.5;
     if (quantity > 0.5 && type === 'minus') {
-      result = quantity - 0.1
+      result = Number((quantity - 0.1).toFixed(1))
     }
 
-    const res = type === 'plus' ? item.quantity + 0.1 : result
+    const res = type === 'plus' ? Number((item.quantity + 0.1).toFixed(1)) : result
 
     if(res !== quantity) {
       const updatedProduct = {
