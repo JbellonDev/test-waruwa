@@ -15,11 +15,11 @@ export const AppContext = createContext({} as EmptyContext);
 //Provider
 export const AppContextProvider = ({children}: { children: React.ReactNode }) => {
   const [productSelect, setProductSelect] = useState<Product>()
-  const [products, setProducts] = useState<CacheProduct[]>(getProductsStore())
+  const [products, setProducts] = useState<CacheProduct[]>([])
 
 
   const values = React.useMemo(() => ({productSelect, products, setProductSelect, setProducts}),
-    [products, productSelect]);   // States que serán visibles en el contexto.
+    [products, productSelect]);
 
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
