@@ -8,3 +8,11 @@
   --btn-background-hover: 200 10% 89%;
   --foreground: 200 50% 3%;
 }
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
