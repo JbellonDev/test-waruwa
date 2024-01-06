@@ -1,6 +1,5 @@
 import React, {useContext, createContext, useState} from 'react';
 import {CacheProduct, Product} from "@/interfaces/supabaseData";
-import {getProductsStore} from "@/utils/storage";
 
 interface EmptyContext {
   productSelect: Product | undefined;
