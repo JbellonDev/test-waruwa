@@ -2,24 +2,21 @@ import clsx from 'clsx';
 
 interface Props {
   amount: number;
-  className?: string;
   currencyCode?: string;
-  currencyCodeClassName?: string;
 }
 
 const Price = ({
                  amount,
-                 className,
                  currencyCode = 'COP',
-                 currencyCodeClassName
                }: Props) => (
-  <p suppressHydrationWarning={true} className={className}>
+  <p suppressHydrationWarning={true}>
     {`${new Intl.NumberFormat(undefined, {
       style: 'currency',
       currency: currencyCode,
-      currencyDisplay: 'narrowSymbol'
+      currencyDisplay: 'symbol',
+      minimumFractionDigits: 0,
+      useGrouping: true
     }).format(amount)}`}
-    <span className={clsx('ml-1 inline', currencyCodeClassName)}>{`${currencyCode}`}</span>
   </p>
 );
 
