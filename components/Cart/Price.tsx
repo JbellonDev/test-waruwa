@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 interface Props {
   amount: number;
   currencyCode?: string;
