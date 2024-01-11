@@ -1,23 +1,38 @@
-import { createClient } from '@/utils/supabase/server'
-import { cookies } from 'next/headers'
+import { createClient } from '@/utils/supabase/server';
+import { cookies } from 'next/headers';
 import Cart from "@/components/Cart/Cart";
+import {Contact, Product} from "@/interfaces/supabaseData";
+import {desencryptHash} from "@/utils/helpers";
+import {Spinner} from "@nextui-org/spinner";
+import { redirect } from 'next/navigation'
+import {urlToRedirect} from "@/constants/global";
 
-export default async function Index() {
+interface Props {
+  params: {};
+  searchParams: PropsParams
+}
+
+interface PropsParams {
+  id: string
+}
+export default async function Shopping({searchParams}: Props) {
   const cookieStore = cookies()
+  const supabase = createClient(cookieStore);
+  const token = process.env.TOKEN_ALEGRA
+  if(!searchParams.id) { redirect(urlToRedirect) }
 
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient(cookieStore)
-      return true
-    } catch (e) {
-      return false
-    }
-  }
+  const id = desencryptHash(searchParams.id, 'bf3c199c2470cb477d907b1e0917c17b')
+  const {data: contact, error}: { data: Contact[] | null, error: any } = await supabase.from("alegra_contacts").select('*').eq('id_contact', id);
 
-  return (
-    <div className="flex-1 w-full flex flex-col items-center justify-center p-4 gap-4">
-    </div>
-  )
+  if (!contact) return <Spinner size="lg" color="primary" />
+  if(!contact.length) { redirect(urlToRedirect) }
+
+  const {data: products}: { data: Product[] | null } = await supabase.from("alegra_items").select('*');
+
+  if (!products) return <Spinner size="lg" color="primary" />
+
+  return <>
+    <Cart data={products} contactData={contact[0]} token={token} />
+  </>
+
 }
