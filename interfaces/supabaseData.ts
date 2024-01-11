@@ -39,6 +39,7 @@ export interface AlegraDataToSend {
 export interface AlegraDataToSendProduct {
   id: number
   quantity: number
+  description: string
   observation: string
   price: number
 }

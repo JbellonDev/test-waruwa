@@ -21,7 +21,9 @@ export default async function Shopping({searchParams}: Props) {
   const token = process.env.TOKEN_ALEGRA
   if(!searchParams.id) { redirect(urlToRedirect) }
 
-  const id = desencryptHash(searchParams.id, 'bf3c199c2470cb477d907b1e0917c17b')
+  const {IV, SECRET_WORD} = process.env
+
+  const id = desencryptHash(searchParams.id, SECRET_WORD!, IV!)
   const {data: contact, error}: { data: Contact[] | null, error: any } = await supabase.from("alegra_contacts").select('*').eq('id_contact', id);
 
   if (!contact) return <Spinner size="lg" color="primary" />
