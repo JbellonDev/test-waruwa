@@ -1,6 +1,5 @@
 import crypto from 'crypto'
 const algorithm = 'aes-256-ctr';
-const IV = "5183666c72eec9e4";
 
 export function addDaysToDate(days: number, currentDate: Date) {
   let numberDays = days
@@ -20,13 +19,13 @@ export const formatDate = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
-export const desencryptHash = (text: string, secretWord: string) => {
+export const desencryptHash = (text: string, secretWord: string, IV: string) => {
   const decipher = crypto.createDecipheriv(algorithm, secretWord, IV);
   let decrypted = decipher.update(text, 'base64', 'utf8');
   return (decrypted + decipher.final('utf8'));
 };
 
-export const encryptHash = (text: string, secretWord: string) => {
+export const encryptHash = (text: string, secretWord: string, IV: string) => {
   let cipher = crypto.createCipheriv(algorithm, secretWord, IV);
   let encrypted = cipher.update(text, 'utf8', 'base64');
   encrypted += cipher.final('base64');
