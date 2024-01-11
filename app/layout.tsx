@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className='light'>
       <body className="flex flex-col bg-background text-foreground min-h-screen justify-between">
-        <Header/>
+        <Header size="sm"/>
         <main className="flex flex-col items-center">
           {children}
         </main>
