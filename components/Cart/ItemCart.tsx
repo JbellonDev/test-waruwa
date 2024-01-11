@@ -51,7 +51,7 @@ export default function ItemCart({id, quantity, price, name, observation}: Props
             </span>
             <input
               type="text"
-              placeholder="Busca los productos"
+              placeholder="Escribe tus observaciones"
               autoComplete="off"
               value={inputValue}
               onChange={handleChange}

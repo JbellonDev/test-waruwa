@@ -51,12 +51,10 @@ export default function ContentCart({ contactData }: Props) {
   }, []);
 
   const getTotal = (): number => {
-    const sumWithInitial = products.reduce(
+    return products.reduce(
       (accumulator, currentValue) => accumulator + (currentValue.price * currentValue.quantity),
       0,
     );
-
-    return sumWithInitial
   }
 
 
