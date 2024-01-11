@@ -31,7 +31,7 @@ export default function Search({ data }: Props) {
       setShowNoResults(!productFiltered?.length)
     } else {
       setProducts([]);
-      setShowNoResults(true)
+      setShowNoResults(false)
     }
   }, WAIT_TIME);
 
