@@ -1,3 +1,7 @@
+import crypto from 'crypto'
+const algorithm = 'aes-256-ctr';
+const IV = "5183666c72eec9e4";
+
 export function addDaysToDate(days: number, currentDate: Date) {
   let numberDays = days
   // Sumar días a la fecha actual
@@ -14,4 +18,17 @@ export const formatDate = (date: Date) => {
   const month = String(date.getMonth() + 1).padStart(2, '0'); // Añadir ceros a la izquierda si es necesario
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+};
+
+export const desencryptHash = (text: string, secretWord: string) => {
+  const decipher = crypto.createDecipheriv(algorithm, secretWord, IV);
+  let decrypted = decipher.update(text, 'base64', 'utf8');
+  return (decrypted + decipher.final('utf8'));
+};
+
+export const encryptHash = (text: string, secretWord: string) => {
+  let cipher = crypto.createCipheriv(algorithm, secretWord, IV);
+  let encrypted = cipher.update(text, 'utf8', 'base64');
+  encrypted += cipher.final('base64');
+  return encrypted;
 };
