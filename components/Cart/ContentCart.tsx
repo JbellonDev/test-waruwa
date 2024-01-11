@@ -4,17 +4,57 @@ import {useEffect} from 'react';
 import EmptyCart from "@/components/Cart/EmptyCart";
 import {CacheProduct, Contact, ProductPrice} from "@/interfaces/supabaseData";
 import Price from "@/components/Cart/Price";
-import {addProduct, getProductsStore} from "@/utils/storage";
+import {addProduct, clearProductsStore, getProductsStore} from "@/utils/storage";
 import useAppContext from "@/components/Context";
 import {createClient} from "@/utils/supabase/client";
 import ItemCart from "@/components/Cart/ItemCart";
+import {addDaysToDate, formatDate} from "@/utils/helpers";
+import {createRemission} from "@/utils/fetchAllegra";
 
 interface Props {
   contactData: Contact
+  token: string | undefined
 }
 
-export default function ContentCart({ contactData }: Props) {
+export default function ContentCart({ contactData, token }: Props) {
   const { products, productSelect, setProducts } = useAppContext()
+
+  const handleClick = async () => {
+
+    // Obtener la fecha actual
+    const currentDate = new Date()
+    const dueDate = addDaysToDate(1, currentDate)
+
+    const dataToSend = {
+        "documentName": "remission",
+        "client": {
+          "id": contactData.id_contact
+        },
+        "priceList": {
+          "id": contactData.price_list_id
+        },
+        "warehouse": {
+          "id": 5
+        },
+        "date": `${formatDate(dueDate)}`,
+        "dueDate": `${formatDate(dueDate)}`,
+        "items": products
+      }
+
+    try {
+      const response = await createRemission(dataToSend, token!)
+      const data = await response.json()
+      console.warn(data)
+      clearProductsStore()
+      setProducts([])
+    } catch (e) {
+      console.error(e)
+    }
+
+
+
+
+  }
 
   useEffect(() => {
     const fetchPriceProducts = async () => {
@@ -83,12 +123,12 @@ export default function ContentCart({ contactData }: Props) {
                 />
               </div>
             </div>
-            <a
-              href="#"
+            <button
+              onClick={handleClick}
               className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
             >
               Haz tu compra
-            </a>
+            </button>
           </div>
         )}
       </div>

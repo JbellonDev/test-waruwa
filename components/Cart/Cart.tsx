@@ -7,15 +7,16 @@ import {AppContextProvider} from "@/components/Context";
 
 interface Props {
   data: Product[]
-  contactData: Contact
+  contactData: Contact,
+  token: string | undefined
 }
 
-export default function Cart({data, contactData}: Props) {
+export default function Cart({data, contactData, token}: Props) {
   return (
     <div className="w-max-[950px] relative w-full lg:px-14 xl:w-full flex flex-col justify-center p-4">
       <AppContextProvider>
         <Search data={data} />
-        <ContentCart contactData={contactData} />
+        <ContentCart contactData={contactData} token={token} />
       </AppContextProvider>
     </div>
   );
