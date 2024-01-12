@@ -39,11 +39,11 @@ export default function ItemCart({id, quantity, price, name, observation, descri
 
   return (
     <>
-      <div className="relative flex w-full flex-row justify-between px-1 py-4">
+      <div className="relative flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-between px-1 py-4">
         <div
-          className="z-30 flex flex-row space-x-4"
+          className="z-30 flex flex-row space-x-4 w-full"
         >
-          <div>
+          <div className="grid place-content-center">
             <DeleteItemButton id={id}/>
           </div>
           <div className="flex flex-1 flex-col text-base">
@@ -60,7 +60,7 @@ export default function ItemCart({id, quantity, price, name, observation, descri
             />
           </div>
         </div>
-        <div className="flex h-16 flex-col justify-between">
+        <div className="flex h-16 flex-col justify-between items-center">
           <Price
             className="flex justify-end space-y-2 text-right text-sm"
             amount={(price * quantity)}
