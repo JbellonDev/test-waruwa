@@ -66,12 +66,16 @@ export default function ContentCart({ contactData, token }: Props) {
           if(!productPrice && contactData.price_list_id !== 10) {
             productPrice = data?.find(product => product.id_price_list === 10)
           }
+
+          if(!productPrice) productPrice = data[0]
+
           const cacheObj: CacheProduct = {
             id: productSelect.id,
             name: productSelect.name,
             quantity: 0.5,
             price: productPrice!.price,
-            observation: ''
+            observation: '',
+            description: ''
           }
 
           addProduct(cacheObj)
@@ -125,7 +129,7 @@ export default function ContentCart({ contactData, token }: Props) {
             </div>
             <button
               onClick={handleClick}
-              className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+              className="block w-full bg-primary rounded-full p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
             >
               Haz tu compra
             </button>

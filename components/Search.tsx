@@ -60,7 +60,7 @@ export default function Search({ data }: Props) {
         ? <ListProductsFiltered productsFiltered={products} clear={resetData} />
         : showNoResults && !!inputValue.length && (
           <div
-            className="w-full border-small px-1 py-2 bg-zinc-800 text-white rounded-small border-default-300 dark:border-default-100 z-10"
+            className="w-full border-small px-1 py-2 bg-secondary text-white rounded-small border-default-300 dark:border-default-100 z-10"
             style={{maxHeight: 150, textAlign: "center", position: "absolute"}}>
             No se ha encontrado ningún producto
           </div>

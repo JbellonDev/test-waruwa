@@ -11,7 +11,7 @@ import {getProductsStore, setOneProduct} from "@/utils/storage";
 
 interface Props extends CacheProduct {}
 
-export default function ItemCart({id, quantity, price, name, observation}: Props) {
+export default function ItemCart({id, quantity, price, name, observation, description}: Props) {
   const [inputValue, setInputValue] = useState(observation);
   const { setProducts } = useAppContext()
 
@@ -26,7 +26,8 @@ export default function ItemCart({id, quantity, price, name, observation}: Props
       quantity,
       price,
       name,
-      observation: value
+      observation: value,
+      description: value
     };
 
     setInputValue(value)
@@ -64,7 +65,7 @@ export default function ItemCart({id, quantity, price, name, observation}: Props
             className="flex justify-end space-y-2 text-right text-sm"
             amount={(price * quantity)}
           />
-          <EditQuantity item={{id, quantity, price, name, observation}} />
+          <EditQuantity item={{id, quantity, price, name, observation, description}} />
         </div>
       </div>
     </>
