@@ -42,9 +42,6 @@ export default function ItemCart({id, quantity, price, name, observation, descri
         <div
           className="z-30 flex flex-row space-x-4 w-full"
         >
-          <div className="grid place-content-center">
-            <DeleteItemButton id={id}/>
-          </div>
           <div className="flex flex-1 flex-col text-base">
             <span className="leading-tight">
               {name}
@@ -64,7 +61,10 @@ export default function ItemCart({id, quantity, price, name, observation, descri
             className="flex justify-end space-y-2 text-right text-sm"
             amount={(price * quantity)}
           />
-          <EditQuantity item={{id, quantity, price, name, observation, description}} />
+          <EditQuantity item={{id, quantity, price, name, observation, description}}/>
+        </div>
+        <div className="grid place-content-center">
+          <DeleteItemButton id={id}/>
         </div>
       </div>
     </>
