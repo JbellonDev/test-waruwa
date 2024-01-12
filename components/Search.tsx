@@ -2,20 +2,13 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import {useDebouncedCallback} from "use-debounce";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import ListProductsFiltered from "@/components/ListBox";
 import {filterData} from "@/utils/search";
-import {Product} from "@/interfaces/supabaseData";
-import {Listbox, ListboxItem} from "@nextui-org/listbox";
 import {useServerContext} from "@/app/provider";
 
-interface Props {
-  data: Product[]
-}
-
-export default function Search({ }: Props) {
+export default function Search() {
   const {allProducts} = useServerContext()
-  const data = allProducts
   const [products, setProducts] = useState<any[]>([])
   const [inputValue, setInputValue] = useState('');
   const [showNoResults, setShowNoResults] = useState(false);
@@ -29,7 +22,7 @@ export default function Search({ }: Props) {
 
   const debouncedOnChange = useDebouncedCallback((search) => {
     if (search) {
-      const productFiltered = filterData(search, data, 'name');
+      const productFiltered = filterData(search, allProducts, 'name');
       setProducts(productFiltered);
       setShowNoResults(!productFiltered?.length)
     } else {
