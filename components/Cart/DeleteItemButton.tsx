@@ -2,15 +2,15 @@
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import {deleteOneProduct, getProductsStore} from "@/utils/storage";
-import useAppContext from "@/components/Context";
+import {useServerContext} from "@/app/provider";
 
 
 export default function DeleteItemButton({ id }: { id: number }) {
-  const { setProducts } = useAppContext()
+  const { setProductsCart } = useServerContext()
   const handleClick = () => {
     deleteOneProduct(id)
     const products = getProductsStore()
-    setProducts(products)
+    setProductsCart(products)
   }
 
   return (

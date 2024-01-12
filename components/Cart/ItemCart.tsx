@@ -5,15 +5,14 @@ import DeleteItemButton from "@/components/Cart/DeleteItemButton";
 import Price from "@/components/Cart/Price";
 import {useState} from "react";
 import {EditQuantity} from "@/components/Cart/EditQuantity";
-import useAppContext from "@/components/Context";
-import {MIN_QUANTITY} from "@/constants/global";
 import {getProductsStore, setOneProduct} from "@/utils/storage";
+import {useServerContext} from "@/app/provider";
 
 interface Props extends CacheProduct {}
 
 export default function ItemCart({id, quantity, price, name, observation, description}: Props) {
   const [inputValue, setInputValue] = useState(observation);
-  const { setProducts } = useAppContext()
+  const { setProductsCart } = useServerContext()
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -33,7 +32,7 @@ export default function ItemCart({id, quantity, price, name, observation, descri
     setInputValue(value)
     setOneProduct(id, updatedProduct)
     const products = getProductsStore()
-    setProducts(products)
+    setProductsCart(products)
 
   }
 

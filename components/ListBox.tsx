@@ -2,7 +2,7 @@
 import {Listbox, ListboxItem} from "@nextui-org/listbox";
 import { useEffect, useState} from "react";
 import {Product} from "@/interfaces/supabaseData";
-import useAppContext from "@/components/Context";
+import {useServerContext} from "@/app/provider";
 
 interface Props {
   clear: () => void
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function ListProductsFiltered({productsFiltered, clear}: Props) {
-  const { setProductSelect } = useAppContext()
+  const { setProductSelect } = useServerContext()
   const [selected, setSelected] = useState<Product>()
 
   useEffect(() => {

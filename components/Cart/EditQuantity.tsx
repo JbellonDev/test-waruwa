@@ -3,9 +3,9 @@
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline';
 import {CacheProduct} from "@/interfaces/supabaseData";
 import {getProductsStore, setOneProduct} from "@/utils/storage";
-import useAppContext from "@/components/Context";
 import {useState} from "react";
 import {MIN_QUANTITY, VALUE_TO_SUM_SUBTRACT} from "@/constants/global";
+import {useServerContext} from "@/app/provider";
 
 const clasNameButton = "hover:cursor-pointer ease flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80 select-none"
 
@@ -31,7 +31,7 @@ function checkMinValue(number: number, minValue: number, type: string) {
 // "w-full border bg-white px-4 py-2 text-sm text-black"
 
 export function EditQuantity({item}: { item: CacheProduct }) {
-  const { setProducts } = useAppContext()
+  const { setProductsCart } = useServerContext()
   const [inputValue, setInputValue] = useState(item.quantity);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -54,7 +54,7 @@ export function EditQuantity({item}: { item: CacheProduct }) {
       setInputValue(result)
       setOneProduct(item.id, updatedProduct)
       const products = getProductsStore()
-      setProducts(products)
+      setProductsCart(products)
     }
   }
 

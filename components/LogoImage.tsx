@@ -7,7 +7,7 @@ export default function LogoImage({size}: { size?: 'sm' | undefined }) {
         <Image src={Logo} alt="Waruwa Logo" priority
                className={clsx({
                  'h-[100px] w-[130px] rounded-xl': !size,
-                 'h-[60px] w-[80px] rounded-lg': size === 'sm'
+                 'h-[36px] w-auto rounded-lg': size === 'sm'
                })}
         />
   )

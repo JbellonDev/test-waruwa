@@ -1,6 +1,7 @@
 import './globals.css'
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import {Providers} from "@/app/provider";
 
 const { SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -27,11 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en" className='light'>
       <body className="flex flex-col bg-background text-foreground min-h-screen justify-between">
+      <Providers>
         <Header size="sm"/>
         <main className="flex flex-col items-center">
           {children}
         </main>
         <Footer />
+      </Providers>
       </body>
     </html>
   )

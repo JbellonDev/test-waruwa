@@ -5,11 +5,11 @@ import EmptyCart from "@/components/Cart/EmptyCart";
 import {CacheProduct, Contact, ProductPrice} from "@/interfaces/supabaseData";
 import Price from "@/components/Cart/Price";
 import {addProduct, clearProductsStore, getProductsStore} from "@/utils/storage";
-import useAppContext from "@/components/Context";
 import {createClient} from "@/utils/supabase/client";
 import ItemCart from "@/components/Cart/ItemCart";
 import {addDaysToDate, formatDate} from "@/utils/helpers";
 import {createRemission} from "@/utils/fetchAllegra";
+import {useServerContext} from "@/app/provider";
 
 interface Props {
   contactData: Contact
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function ContentCart({ contactData, token }: Props) {
-  const { products, productSelect, setProducts } = useAppContext()
+  const { productsCart, productSelect, setProductsCart } = useServerContext()
 
   const handleClick = async () => {
 
@@ -38,7 +38,7 @@ export default function ContentCart({ contactData, token }: Props) {
         },
         "date": `${formatDate(dueDate)}`,
         "dueDate": `${formatDate(dueDate)}`,
-        "items": products
+        "items": productsCart
       }
 
     try {
@@ -46,7 +46,7 @@ export default function ContentCart({ contactData, token }: Props) {
       const data = await response.json()
       console.warn(data)
       clearProductsStore()
-      setProducts([])
+      setProductsCart([])
     } catch (e) {
       console.error(e)
     }
@@ -70,7 +70,7 @@ export default function ContentCart({ contactData, token }: Props) {
           if(!productPrice) productPrice = data[0]
 
           const cacheObj: CacheProduct = {
-            id: productSelect.id,
+            id: productSelect.id_alegra,
             name: productSelect.name,
             quantity: 0.5,
             price: productPrice!.price,
@@ -80,7 +80,7 @@ export default function ContentCart({ contactData, token }: Props) {
 
           addProduct(cacheObj)
           const cacheProducts = getProductsStore();
-          setProducts(cacheProducts)
+          setProductsCart(cacheProducts)
         }
       }
     }
@@ -91,11 +91,11 @@ export default function ContentCart({ contactData, token }: Props) {
 
   useEffect(() => {
     const cartProducts = getProductsStore()
-    setProducts(cartProducts)
+    setProductsCart(cartProducts)
   }, []);
 
   const getTotal = (): number => {
-    return products.reduce(
+    return productsCart.reduce(
       (accumulator, currentValue) => accumulator + (currentValue.price * currentValue.quantity),
       0,
     );
@@ -105,10 +105,10 @@ export default function ContentCart({ contactData, token }: Props) {
   return (
     <>
       <div className="flex h-full w-full flex-col p-6 text-black backdrop-blur-xl">
-        {products.length === 0 ? (<EmptyCart />) : (
+        {productsCart.length === 0 ? (<EmptyCart />) : (
           <div className="flex h-full flex-col justify-between overflow-hidden p-1">
             <ul className="flex-grow overflow-auto py-4">
-              {products.map(item => (
+              {productsCart.map(item => (
                 <li
                   key={item.id}
                   className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
@@ -131,7 +131,7 @@ export default function ContentCart({ contactData, token }: Props) {
               onClick={handleClick}
               className="block w-full bg-primary rounded-full p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
             >
-              Haz tu compra
+              Haz tu Pedido
             </button>
           </div>
         )}

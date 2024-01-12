@@ -6,6 +6,7 @@ import {desencryptHash} from "@/utils/helpers";
 import {Spinner} from "@nextui-org/spinner";
 import { redirect } from 'next/navigation'
 import {urlToRedirect} from "@/constants/global";
+import {useServerContext} from "@/app/provider";
 
 interface Props {
   params: {};
