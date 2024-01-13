@@ -4,9 +4,7 @@ import Cart from "@/components/Cart/Cart";
 import {Contact, Product} from "@/interfaces/supabaseData";
 import {desencryptHash} from "@/utils/helpers";
 import {Spinner} from "@nextui-org/spinner";
-import { redirect } from 'next/navigation'
 import {urlToRedirect} from "@/constants/global";
-import {useServerContext} from "@/app/provider";
 import {PostgrestError} from "@supabase/supabase-js";
 import ErrorUser from "@/components/ErrorUser";
 
@@ -25,7 +23,7 @@ export default async function Shopping({searchParams}: Props) {
   //Get environments
   const {IV, SECRET_WORD, TOKEN_ALEGRA} = process.env
 
-  const id = desencryptHash(searchParams.id, SECRET_WORD!, IV!)
+  const id = desencryptHash(searchParams.id ?? '', SECRET_WORD!, IV!)
   const {data: contact, error}: { data: Contact[] | null, error: PostgrestError | null } = await supabase.from("alegra_contacts").select('*').eq('id_contact', id);
 
   //Return Component error when obtain supabase error

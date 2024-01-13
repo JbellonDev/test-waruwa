@@ -1,17 +1,17 @@
 import {CacheProduct, Contact} from "@/interfaces/supabaseData";
 
 const emptyObj: CacheProduct[] = []
-export const setProductsStore = (data: CacheProduct[]) => {
+export const setProductsStore = (data: CacheProduct[], id: string | number) => {
   const products = JSON.stringify(data)
-  window.localStorage.setItem('wa_cart_product', products)
+  window.localStorage.setItem(`wa_cart_product_${id}`, products)
 }
 
-export const getProductsStore = (): CacheProduct[] => {
+export const getProductsStore = (id: string | number): CacheProduct[] => {
   let result = [];
 
   if(typeof window === 'undefined') return []
 
-  const products: string | null = window.localStorage.getItem('wa_cart_product')
+  const products: string | null = window.localStorage.getItem(`wa_cart_product_${id}`)
 
   if(products) {
     result = JSON.parse(products)
@@ -20,38 +20,38 @@ export const getProductsStore = (): CacheProduct[] => {
   return result
 }
 
-export const clearProductsStore = () => {
-  setProductsStore(emptyObj)
+export const clearProductsStore = (id: string | number) => {
+  setProductsStore(emptyObj, id)
 }
 
-export const addProduct = (product: CacheProduct) => {
+export const addProduct = (product: CacheProduct, id: string | number) => {
   if(product) {
-    const products = getProductsStore();
+    const products = getProductsStore(id);
 
     const existProduct = products.find(p => p.id === product.id)
 
     if(!existProduct) {
       products.push(product)
 
-      setProductsStore(products)
+      setProductsStore(products, id)
     }
   }
 }
 
-export const deleteOneProduct = (id: number) => {
-  const products = getProductsStore();
+export const deleteOneProduct = (id: number, idContact: string | number) => {
+  const products = getProductsStore(idContact);
   const deleteProducts = products.filter(p => p.id !== id)
-  setProductsStore(deleteProducts)
+  setProductsStore(deleteProducts, idContact)
 }
 
-export const getOneProduct = (id: number) => {
-  const products = getProductsStore();
+export const getOneProduct = (id: number, idContact: string | number) => {
+  const products = getProductsStore(idContact);
   const product = products.find(p => p.id !== id)
   return product
 }
 
-export const setOneProduct = (id: number, updatedProduct: CacheProduct) => {
-  const products = getProductsStore();
+export const setOneProduct = (id: number, updatedProduct: CacheProduct, idContact: string | number) => {
+  const products = getProductsStore(idContact);
   const updatedProducts = products.map((product) => {
     if (product.id === id) {
       // Si encontramos el producto con el id, lo actualizamos con los nuevos valores
@@ -60,35 +60,5 @@ export const setOneProduct = (id: number, updatedProduct: CacheProduct) => {
     // Si no es el producto que buscamos, lo dejamos sin cambios
     return product;
   });
-  setProductsStore(updatedProducts)
-}
-
-/*
-* Aqui estara la logica del store del contact
-* */
-const emptyContect: Contact = {
-  id: -1,
-  id_contact: -1,
-  name: '',
-  identificacion: '',
-  price_list_id: -1,
-}
-export const setContactStore = (data: Contact) => {
-  const user = JSON.stringify(data)
-  window.localStorage.setItem('wa_client', user)
-}
-
-export const getContactStore = () => {
-  let result = emptyContect;
-  const contact: string | null = window.localStorage.getItem('wa_client')
-
-  if(contact) {
-    result = JSON.parse(contact)
-  }
-
-  return result
-}
-
-export const clearContactStore = () => {
-  setContactStore(emptyContect)
+  setProductsStore(updatedProducts, idContact)
 }

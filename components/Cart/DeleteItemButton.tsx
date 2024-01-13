@@ -8,10 +8,11 @@ import {useServerContext} from "@/app/provider";
 
 
 export default function DeleteItemButton({ id }: { id: number }) {
-  const { setProductsCart } = useServerContext()
+  const { contact, setProductsCart } = useServerContext()
   const handleClick = () => {
-    deleteOneProduct(id)
-    const products = getProductsStore()
+    const idContact = contact?.id ?? ''
+    deleteOneProduct(id, idContact)
+    const products = getProductsStore(idContact)
     setProductsCart(products)
   }
 

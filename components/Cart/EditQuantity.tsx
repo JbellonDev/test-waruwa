@@ -31,7 +31,7 @@ function checkMinValue(number: number, minValue: number, type: string) {
 // "w-full border bg-white px-4 py-2 text-sm text-black"
 
 export function EditQuantity({item}: { item: CacheProduct }) {
-  const { setProductsCart } = useServerContext()
+  const { contact, setProductsCart } = useServerContext()
   const [inputValue, setInputValue] = useState(item.quantity);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -52,8 +52,9 @@ export function EditQuantity({item}: { item: CacheProduct }) {
       };
 
       setInputValue(result)
-      setOneProduct(item.id, updatedProduct)
-      const products = getProductsStore()
+      const idContact = contact?.id ?? ''
+      setOneProduct(item.id, updatedProduct, idContact)
+      const products = getProductsStore(idContact)
       setProductsCart(products)
     }
   }

@@ -12,7 +12,7 @@ interface Props extends CacheProduct {}
 
 export default function ItemCart({id, quantity, price, name, observation, description}: Props) {
   const [inputValue, setInputValue] = useState(observation);
-  const { setProductsCart } = useServerContext()
+  const { contact, setProductsCart } = useServerContext()
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -30,8 +30,9 @@ export default function ItemCart({id, quantity, price, name, observation, descri
     };
 
     setInputValue(value)
-    setOneProduct(id, updatedProduct)
-    const products = getProductsStore()
+    const idContact = contact?.id ?? ''
+    setOneProduct(id, updatedProduct, idContact)
+    const products = getProductsStore(idContact)
     setProductsCart(products)
 
   }

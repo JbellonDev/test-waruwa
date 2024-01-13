@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function ListProductsFiltered({productsFiltered, clear}: Props) {
-  const { setProductsCart } = useServerContext()
+  const { contact, setProductsCart } = useServerContext()
 
   const handleClick = (item: Product) => {
     const cacheObj: CacheProduct = {
@@ -22,8 +22,9 @@ export default function ListProductsFiltered({productsFiltered, clear}: Props) {
       description: ''
     }
 
-    addProduct(cacheObj)
-    const cacheProducts = getProductsStore();
+    const id = contact?.id ?? ''
+    addProduct(cacheObj, id)
+    const cacheProducts = getProductsStore(id);
     setProductsCart(cacheProducts)
     clear()
   }
@@ -45,7 +46,7 @@ export default function ListProductsFiltered({productsFiltered, clear}: Props) {
                 <span className="text-tiny text-default-600">${item.price}</span>
                 <div className="flex gap-2 text-tiny">
                   <span className="text-default-500">Gramo a</span>
-                  <span className="text-success">${(Math.ceil(Number(item.price ?? 0) / 1000))}</span>
+                  <span className="text-primary">${(Math.ceil(Number(item.price ?? 0) / 1000))}</span>
                 </div>
               </div>
 
