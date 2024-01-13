@@ -38,6 +38,8 @@ export default function Search() {
     setInputValue(value)
     if(value.length > 1) {
       debouncedOnChange(value)
+    } else {
+      setProducts([]);
     }
   }
 
