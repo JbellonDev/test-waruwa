@@ -36,7 +36,9 @@ export default function Search() {
     const search = e.target as HTMLInputElement;
     const value = search?.value || ''
     setInputValue(value)
-    debouncedOnChange(value)
+    if(value.length > 1) {
+      debouncedOnChange(value)
+    }
   }
 
   return (
@@ -56,7 +58,7 @@ export default function Search() {
         ? <ListProductsFiltered productsFiltered={products} clear={resetData} />
         : showNoResults && !!inputValue.length && (
           <div
-            className="w-full border-small p-2 bg-secondary text-white rounded-small border-default-300 z-10"
+            className="w-full border-small px-4 py-2 bg-white text-secondary rounded-small border-default-300 dark:border-default-100 z-10"
             style={{ maxWidth: 'calc(100% - 32px)', maxHeight: 150, position: "absolute"}}>
             No se ha encontrado ningún producto
           </div>

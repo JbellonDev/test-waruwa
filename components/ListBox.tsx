@@ -1,9 +1,8 @@
 'use client';
 import {Listbox, ListboxItem} from "@nextui-org/listbox";
-import { useEffect, useState} from "react";
-import {Product} from "@/interfaces/supabaseData";
+import {CacheProduct, Product} from "@/interfaces/supabaseData";
 import {useServerContext} from "@/app/provider";
-import {TrashIcon} from "@heroicons/react/24/outline";
+import {addProduct, getProductsStore} from "@/utils/storage";
 
 interface Props {
   clear: () => void
@@ -11,10 +10,21 @@ interface Props {
 }
 
 export default function ListProductsFiltered({productsFiltered, clear}: Props) {
-  const { setProductSelect } = useServerContext()
+  const { setProductsCart } = useServerContext()
 
   const handleClick = (item: Product) => {
-    setProductSelect(item)
+    const cacheObj: CacheProduct = {
+      id: item.id_alegra,
+      name: item.name,
+      quantity: 0.5,
+      price: item.price,
+      observation: '',
+      description: ''
+    }
+
+    addProduct(cacheObj)
+    const cacheProducts = getProductsStore();
+    setProductsCart(cacheProducts)
     clear()
   }
 
@@ -28,7 +38,7 @@ export default function ListProductsFiltered({productsFiltered, clear}: Props) {
         items={productsFiltered}
       >
         {(item) => (
-          <ListboxItem key={item.id} className="px-2" onClick={() => handleClick(item)} textValue={item.name}>
+          <ListboxItem key={item.id_alegra} className="px-2" onClick={() => handleClick(item)} textValue={item.name}>
             <div className="flex justify-between items-center">
               <div className="flex flex-col">
                 {item.name}
