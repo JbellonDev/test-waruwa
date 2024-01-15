@@ -6,8 +6,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@heroicons/react": "^2.1.1",
     "@nextui-org/autocomplete": "^2.0.9",
+    "@nextui-org/card": "^2.0.24",
     "@nextui-org/listbox": "^2.1.16",
     "@nextui-org/spinner": "^2.0.24",
     "@nextui-org/system": "^2.0.15",
