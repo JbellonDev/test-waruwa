@@ -2,13 +2,10 @@ import clsx from 'clsx';
 import Logo from '@/public/Logo Waruwa - Blanco.svg'
 import Image from "next/image";
 
-export default function LogoImage({size}: { size?: 'sm' | undefined }) {
+export default function LogoImage({customClass}: { customClass: string }) {
   return (
         <Image src={Logo} alt="Waruwa Logo" priority
-               className={clsx('z-10', {
-                 'h-[80px] w-auto': !size,
-                 'h-[40px] w-auto': size === 'sm'
-               })}
+               className={clsx(`z-10 w-auto ${customClass}`)}
         />
   )
 }
