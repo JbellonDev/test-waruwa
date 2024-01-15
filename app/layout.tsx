@@ -32,13 +32,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.className} light`}>
-      <body className="bg-background text-foreground min-h-screen">
+      <body className="bg-background text-foreground">
       <Providers>
-        <Header />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <div className="flex flex-col justify-between min-h-[100vh]">
+          <Header />
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </div>
       </Providers>
       </body>
     </html>

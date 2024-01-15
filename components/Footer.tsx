@@ -1,10 +1,18 @@
+'use client'
 import LogoImage from "@/components/LogoImage";
+import {useServerContext} from "@/app/provider";
 
 
-export default function Footer({size}: { size?: 'sm' | undefined }) {
+export default function Footer() {
+  const {productsCart} = useServerContext()
   return (
-    <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-      <LogoImage size={size} />
-    </footer>
+    <>
+      {!!productsCart.length && (
+        <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+          <LogoImage customClass="" />
+        </footer>
+      )}
+    </>
+
   )
 }

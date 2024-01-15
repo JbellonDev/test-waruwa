@@ -17,7 +17,7 @@ export default function HeaderWithImage({children}: Props) {
         <div className="flex flex-col gap-4 sm:gap-7 z-10 items-center">
           <div className="w-auto leading-[0] py-2 px-4 bg-primary text-white xl:px-[1.3rem] xl:py-[0.75rem] text-center">
               <span
-                className="uppercase leading-[normal] text-[0.65rem] tracking-[0.0225rem] font-semibold text-center xl:text-lg lg:tracking-[0.1125rem]">
+                className="uppercase leading-[normal] text-[0.65rem] tracking-[0.0225rem] font-semibold text-center xl:text-lg lg:tracking-[0.1125rem] lg:leading-[normal] xl:leading-[normal]">
               Donde la calidad se encuentra con la pureza
             </span>
           </div>

@@ -75,9 +75,9 @@ export default function Cart({data, contactData, token}: Props) {
   }, []);
 
   return (
-    <div className="w-max-[950px] relative w-full lg:px-14 xl:w-full flex flex-col justify-center p-4">
+    <div className="w-max-[950px] relative w-full lg:px-14 xl:w-full flex flex-col justify-center px-4">
       { (!remissionNumber && !hasError) || productsCart.length ? (
-        <div className="flex h-full w-full flex-col p-6 text-black backdrop-blur-xl">
+        <div className="flex h-full w-full flex-col text-black">
           {productsCart.length === 0 ? (<EmptyCart/>) : (
             <div className="flex h-full flex-col justify-between overflow-hidden p-1">
               <ul className="flex-grow overflow-auto py-4">
