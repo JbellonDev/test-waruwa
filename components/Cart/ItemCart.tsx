@@ -53,13 +53,13 @@ export default function ItemCart({id, quantity, price, name, observation, descri
               autoComplete="off"
               value={inputValue}
               onChange={handleChange}
-              className="w-full mt-2 rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500"
+              className="mx- w-2/5 mt-2 rounded-lg border bg-white px-4 py-2 text-base text-black placeholder:text-neutral-500"
             />
           </div>
         </div>
         <div className="flex h-16 flex-col justify-between items-center">
           <Price
-            className="flex justify-end space-y-2 text-right text-sm"
+            className="flex justify-end space-y-2 text-right text-base"
             amount={(price * quantity)}
           />
           <EditQuantity item={{id, quantity, price, name, observation, description}}/>

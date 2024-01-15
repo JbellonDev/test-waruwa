@@ -84,16 +84,16 @@ export default function Cart({data, contactData, token}: Props) {
                 {productsCart.map(item => (
                     <li
                       key={item.id}
-                      className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
+                      className="flex w-2/5 mx-auto flex-col border-b border-neutral-300 dark:border-neutral-700"
                     >
                       <ItemCart {...item} />
                     </li>
                   )
                 )}
               </ul>
-              <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
+              <div className="py-4 text-base text-neutral-500 dark:text-neutral-400">
                 <div
-                  className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                  className="mb-3 mx-auto w-2/5 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                   <p>Total</p>
                   <Price
                     className="text-right text-base text-black dark:text-white"
@@ -103,7 +103,7 @@ export default function Cart({data, contactData, token}: Props) {
               </div>
               <button
                 onClick={handleClick}
-                className="block w-full bg-primary rounded-full p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+                className="block mx-auto w-56 bg-primary rounded-xl p-3 text-center text-base font-medium py-5 text-white opacity-90 hover:opacity-100"
               >
                 Haz tu Pedido
               </button>
