@@ -1,6 +1,6 @@
 'use client';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import {useDebouncedCallback} from "use-debounce";
 import {useState} from "react";
 import ListProductsFiltered from "@/components/ListBox";
@@ -44,24 +44,24 @@ export default function Search() {
   }
 
   return (
-    <div className="relative w-[700px] p-4">
+    <div className="relative max-w-[1000px] w-full">
       <input
         type="text"
-        placeholder="Busca los productos"
+        placeholder="Busca tus productos aquí"
         autoComplete="off"
         value={inputValue}
         onChange={onChange}
-        className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500"
+        className="w-full rounded-2xl border bg-white py-4 px-5 text-sm text-black placeholder:text-stone-700"
       />
       <div className="absolute right-0 top-0 mr-6 flex h-full items-center">
-        <MagnifyingGlassIcon className="h-4" />
+        <MagnifyingGlassIcon className="h-4 text-primary" />
       </div>
       {!!products.length
         ? <ListProductsFiltered productsFiltered={products} clear={resetData} />
         : showNoResults && !!inputValue.length && (
           <div
             className="w-full border-small px-4 py-2 bg-white text-secondary rounded-small border-default-300 dark:border-default-100 z-10"
-            style={{ maxWidth: 'calc(100% - 32px)', maxHeight: 150, position: "absolute"}}>
+            style={{ maxHeight: 150, position: "absolute"}}>
             No se ha encontrado ningún producto
           </div>
         )

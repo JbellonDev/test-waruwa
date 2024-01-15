@@ -2,7 +2,9 @@ import './globals.css'
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {Providers} from "@/app/provider";
+import { Inter } from 'next/font/google'
 
+const inter = Inter({ subsets: ['latin'] })
 const { SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
@@ -26,11 +28,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className='light'>
-      <body className="flex flex-col bg-background text-foreground min-h-screen justify-between">
+    <html lang="en" className={`${inter.className} light`}>
+      <body className="bg-background text-foreground min-h-screen">
       <Providers>
-        <Header size="sm"/>
-        <main className="flex flex-col items-center">
+        <Header />
+        <main>
           {children}
         </main>
         <Footer />
