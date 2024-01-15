@@ -7,6 +7,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@nextui-org/theme/dist/components/spinner.js',
     './node_modules/@nextui-org/theme/dist/components/listbox.js',
+    './node_modules/@nextui-org/theme/dist/components/card.jsx',
   ],
   theme: {
     extend: {

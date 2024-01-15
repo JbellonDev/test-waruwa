@@ -14,7 +14,7 @@ export default function Header() {
       {productsCart.length ? (
         <div className="flex flex-col gap-4 items-center fixed top-0 left-0 w-full z-40 bg-white">
           <div className="flex w-full gap-8 justify-around items-center pt-4">
-            <LogoImage size="sm"/>
+            <LogoImage customClass=""/>
             <Search />
             <div></div>
           </div>
