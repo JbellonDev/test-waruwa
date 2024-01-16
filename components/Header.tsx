@@ -4,6 +4,7 @@ import Search from "@/components/Search";
 import {useServerContext} from "@/app/provider";
 import bg from "@/public/bgFruits.png"
 import HeaderWithImage from "@/components/Headers/HeaderImage";
+import { OrderCard } from "./card/Card"
 
 export default function Header() {
   const {productsCart} = useServerContext()
@@ -20,8 +21,9 @@ export default function Header() {
           </div>
         </div>
       ) : (
-        <HeaderWithImage>
-          <Search/>
+        <HeaderWithImage >
+          <OrderCard remissionNumber={""} />
+          {/* <Search/> */}
         </HeaderWithImage>
       )}
     </>

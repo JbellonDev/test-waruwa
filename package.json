@@ -8,6 +8,7 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@nextui-org/autocomplete": "^2.0.9",
+    "@nextui-org/card": "^2.0.24",
     "@nextui-org/listbox": "^2.1.16",
     "@nextui-org/spinner": "^2.0.24",
     "@nextui-org/system": "^2.0.15",
@@ -19,7 +20,7 @@
     "framer-motion": "^10.17.6",
     "geist": "^1.0.0",
     "next": "latest",
-    "postcss": "8.4.29",
+    "postcss": "^8.4.33",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
