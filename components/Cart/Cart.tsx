@@ -75,43 +75,45 @@ export default function Cart({data, contactData, token}: Props) {
   }, []);
 
   return (
-    <div className="w-max-[950px] relative w-full lg:px-14 xl:w-full flex flex-col justify-center px-4">
+    <div className="max-w-[1170px] m-0 mx-auto relative w-full sm:w-full flex flex-col justify-center px-[16px] sm:px-8 xl:px-0">
       { (!remissionNumber && !hasError) || productsCart.length ? (
-        <div className="flex h-full w-full flex-col text-black">
+        <div className="flex h-full w-full flex-col">
           {productsCart.length === 0 ? (<EmptyCart/>) : (
-            <div className="flex h-full flex-col justify-between overflow-hidden p-1">
-              <ul className="flex-grow overflow-auto py-4">
-                {productsCart.map(item => (
+            <div className="min-h-[calc(100vh-170px)] sm:min-h-0 flex sm:h-full flex-col justify-between overflow-hidden mt-[25px] sm:mt-[60px]">
+              <h2 className="text-primary text-[30px] font-bold">Tu orden de pedido:</h2>
+              <ul className="flex-grow py-[25px] pb-[152px] sm:py-[40px]">
+                {productsCart.map((item, index) => (
                     <li
                       key={item.id}
-                      className="flex w-2/5 mx-auto flex-col border-b border-neutral-300 dark:border-neutral-700"
+                      className={`flex mx-auto flex-col ${index != (productsCart.length - 1) ? 'border-b border-[#EAEAEA]' : ''}`}
                     >
                       <ItemCart {...item} />
                     </li>
                   )
                 )}
               </ul>
-              <div className="py-4 text-base text-neutral-500 dark:text-neutral-400">
+              {/*Total Price*/}
+              <div className="absolute custom-shadow bg-white sm:bg-transparent bottom-0 right-0 sm:relative px-[16px] py-[20px] sm:p-0 w-full flex flex-col">
                 <div
-                  className="mb-3 mx-auto w-2/5 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                  <p>Total</p>
+                  className="flex justify-between sm:border-b sm:border-[#EAEAEA] pb-[14px]">
+                  <p className="text-[#555] text-[18px] font-semibold tracking-[0.54px] leading-[normal]">Total</p>
                   <Price
-                    className="text-right text-base text-black dark:text-white"
+                    className="text-primary leading-[normal] text-[20px] font-semibold"
                     amount={getTotal()}
                   />
                 </div>
+                <button
+                  onClick={handleClick}
+                  className="w-full sm:w-auto sm:mt-[15px] bg-primary text-center rounded-[8px] text-white text-[16px] font-bold leading-[125%] px-[24px] py-[12px] self-end"
+                >
+                  Haz tu Pedido
+                </button>
               </div>
-              <button
-                onClick={handleClick}
-                className="block mx-auto w-56 bg-primary rounded-xl p-3 text-center text-base font-medium py-5 text-white opacity-90 hover:opacity-100"
-              >
-                Haz tu Pedido
-              </button>
             </div>
           )}
         </div>
       ) : (
-        hasError ? <ErrorUser msg="" url={urlToRedirect} /> : <DoneRemission remissionNumber={remissionNumber} />
+        hasError ? <ErrorUser msg="" url={urlToRedirect}/> : <DoneRemission remissionNumber={remissionNumber}/>
       )}
 
     </div>
