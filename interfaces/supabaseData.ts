@@ -16,6 +16,7 @@ export interface Product {
   name: string
   reference: string
   price: number
+  image_url: string | null
 }
 
 export interface AlegraDataToSendProduct {
@@ -28,4 +29,5 @@ export interface AlegraDataToSendProduct {
 
 export interface CacheProduct extends AlegraDataToSendProduct {
   name: string
+  image: string
 }

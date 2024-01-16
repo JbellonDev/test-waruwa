@@ -1,13 +1,18 @@
 'use client';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import {useDebouncedCallback} from "use-debounce";
 import {useState} from "react";
 import ListProductsFiltered from "@/components/ListBox";
 import {filterData} from "@/utils/search";
 import {useServerContext} from "@/app/provider";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-export default function Search() {
+interface Props {
+  customClass: string
+}
+
+export default function Search({ customClass }: Props) {
   const {allProducts} = useServerContext()
   const [products, setProducts] = useState<any[]>([])
   const [inputValue, setInputValue] = useState('');
@@ -51,10 +56,10 @@ export default function Search() {
         autoComplete="off"
         value={inputValue}
         onChange={onChange}
-        className="w-full rounded-2xl border bg-white py-4 px-5 text-sm text-black placeholder:text-stone-700"
+        className={`w-full rounded-2xl border bg-white p-3 text-sm text-black placeholder:text-stone-700 focus:border-primary focus:outline-primary active:border-primary hover:border-primary ${customClass}`}
       />
       <div className="absolute right-0 top-0 mr-6 flex h-full items-center">
-        <MagnifyingGlassIcon className="h-4 text-primary" />
+        <FontAwesomeIcon className="text-primary text-xl font-black" icon={faMagnifyingGlass}/>
       </div>
       {!!products.length
         ? <ListProductsFiltered productsFiltered={products} clear={resetData} />

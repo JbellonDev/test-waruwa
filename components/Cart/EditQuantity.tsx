@@ -61,23 +61,21 @@ export function EditQuantity({item}: { item: CacheProduct }) {
 
   return (
     <div
-      className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
+      className="w-[100px] m-0 sm:ml-auto flex h-9 flex-row items-center rounded-full border border-[#DEDEDE] sm:w-[120px]">
       <div
         className={clasNameButton}
         onClick={() => updateQuantity('minus')}>
-          <MinusIcon className="h-4 w-4 dark:text-neutral-500"/>
+          <MinusIcon className="h-4 w-4 text-[#00000099]"/>
       </div>
-      <p className="w-auto max-w-[60px] text-center">
-        <input
-          type="number"
-          onChange={handleChange}
-          className="text-center w-full text-base hover md:text-basecursor-default flex items-center outline-none bg-transparent"
-          value={inputValue}/>
-      </p>
+      <input
+        type="number"
+        onChange={handleChange}
+        className="text-center text-[#444] text-[14px] w-full hover md:text-basecursor-default flex items-center outline-none bg-transparent"
+        value={inputValue}/>
       <div
         className={clasNameButton}
         onClick={() => updateQuantity('plus')}>
-          <PlusIcon className="h-4 w-4 dark:text-neutral-500"/>
+          <PlusIcon className="h-4 w-4 text-[#00000099]"/>
       </div>
     </div>
   )

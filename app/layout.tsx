@@ -3,6 +3,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {Providers} from "@/app/provider";
 import { Inter } from 'next/font/google'
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] })
 const { SITE_NAME } = process.env;
@@ -29,13 +32,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.className} light`}>
-      <body className="bg-background text-foreground min-h-screen">
+      <body className="bg-background text-foreground">
       <Providers>
-        <Header />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <div className="flex flex-col justify-between min-h-[100vh] relative">
+          <Header />
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </div>
       </Providers>
       </body>
     </html>
