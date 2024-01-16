@@ -8,7 +8,11 @@ import {filterData} from "@/utils/search";
 import {useServerContext} from "@/app/provider";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-export default function Search() {
+interface Props {
+  customClass: string
+}
+
+export default function Search({ customClass }: Props) {
   const {allProducts} = useServerContext()
   const [products, setProducts] = useState<any[]>([])
   const [inputValue, setInputValue] = useState('');
@@ -52,7 +56,7 @@ export default function Search() {
         autoComplete="off"
         value={inputValue}
         onChange={onChange}
-        className="w-full rounded-2xl border bg-white p-3 text-sm sm:py-4 sm:px-5 sm:text-lg text-black placeholder:text-stone-700"
+        className={`w-full rounded-2xl border bg-white p-3 text-sm text-black placeholder:text-stone-700 focus:border-primary focus:outline-primary active:border-primary hover:border-primary ${customClass}`}
       />
       <div className="absolute right-0 top-0 mr-6 flex h-full items-center">
         <FontAwesomeIcon className="text-primary text-xl font-black" icon={faMagnifyingGlass}/>

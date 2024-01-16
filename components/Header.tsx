@@ -2,26 +2,23 @@
 import LogoImage from "@/components/LogoImage";
 import Search from "@/components/Search";
 import {useServerContext} from "@/app/provider";
-import bg from "@/public/bgFruits.png"
 import HeaderWithImage from "@/components/Headers/HeaderImage";
 
 export default function Header() {
   const {productsCart} = useServerContext()
-  const stylesClassName = `${productsCart.length ? 'h-[94px] bg-primary' : ``}`
 
   return (
     <>
       {productsCart.length ? (
-        <div className="flex flex-col gap-4 items-center fixed top-0 left-0 w-full z-40 bg-white">
-          <div className="flex w-full gap-8 justify-around items-center pt-4">
-            <LogoImage customClass=""/>
-            <Search />
-            <div></div>
+        <div className="h-[140px] sm:h-[150px]">
+          <div className="h-[140px] px-[20px] sm:h-[150px] flex flex-wrap gap-x-[50px] items-center fixed top-0 left-0 w-full z-40 bg-primary justify-center">
+            <LogoImage customClass="h-[50px] lg:h-[70px]"/>
+            <Search customClass="xl:py-4 xl:px-5 xl:text-lg"/>
           </div>
         </div>
       ) : (
         <HeaderWithImage>
-          <Search/>
+          <Search customClass="sm:py-4 sm:px-5 sm:text-lg"/>
         </HeaderWithImage>
       )}
     </>
