@@ -8,31 +8,16 @@ interface CardProps {
     description?: string;
     button?: string;
     }
-
-export const OrderCard = ({remissionNumber}: CardProps) => {
+   
+export const Card = ({remissionNumber}: CardProps) => {
     
     return ( 
-        <div style={{ 
-            zIndex: 2, 
-            width: '500px', 
-            height: '275px', 
-            borderRadius: '1rem', 
-            backgroundColor: 'white', 
-            display: 'flex', 
-            flexDirection: 'column',
-            maxWidth: '520px',   
-            maxHeight: '275px',  
-            background: 'white'  
-          }}>
-           <Image
-            src={checkIcon}
-            alt="Check Icon"
-            className="w-55 h-45 mx-auto mt-12"
-            />
-            <p className="mx-auto mt-10">Se ha creado tu pedido con el Número de Orden</p>
-            
-            <div className="mt-10 mx-auto px-10 py-5 text-sm text-white bg-white-600 rounded-full border border-solid border-gray ">
-            {remissionNumber}</div>
+        <div className="z-10 w-112 h-68 rounded-xl bg-white flex flex-col max-w-112 max-h-68 py-12 px-20">
+           <Image src={checkIcon} alt="Check Icon" className="w-55 h-55 mx-auto" />
+           <div className="text-neutral-700 text-base font-normal font-['Inter'] mx-auto mt-9">Se ha creado tu pedido con Número de orden</div>
+           <div className="mt-9 mx-auto w-[119px] h-[38px] px-7 py-2.5 rounded-[46px] border border-black border-opacity-20 justify-center items-center gap-2.5 inline-flex">
+           <div className="text-neutral-700 text-[25px] font-medium font-['Inter']">{remissionNumber}</div>
+           </div>
         </div>
     )
 }
