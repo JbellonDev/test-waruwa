@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.className} light`}>
       <body className="bg-background text-foreground">
       <Providers>
-        <div className="flex flex-col justify-between min-h-[100vh]">
+        <div className="flex flex-col justify-between min-h-[100vh] relative">
           <Header />
           <main>
             {children}

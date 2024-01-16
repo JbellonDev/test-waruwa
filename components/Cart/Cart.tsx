@@ -104,7 +104,7 @@ export default function Cart({data, contactData, token}: Props) {
                 </div>
                 <button
                   onClick={handleClick}
-                  className="w-full sm:w-auto sm:mt-[15px] bg-primary text-center rounded-[8px] text-white text-[16px] font-bold leading-[125%] px-[24px] py-[12px] self-end"
+                  className="w-full sm:w-auto sm:mt-[15px] bg-primary text-center rounded-[8px] text-white text-[16px] font-bold leading-[125%] px-[24px] py-[12px] self-end z-[1]"
                 >
                   Haz tu Pedido
                 </button>
