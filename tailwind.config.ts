@@ -21,6 +21,11 @@ module.exports = {
           'background-hover': 'hsl(var(--btn-background-hover))',
         },
       },
+      extend: {
+        width: {
+          '110': '440px',
+        }
+      }
     },
   },
   darkMode: "class",
