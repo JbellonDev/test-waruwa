@@ -21,7 +21,7 @@ interface Props {
 
 export default function Cart({data, contactData, token}: Props) {
   const { contact, productsCart, setProductsCart, setAllProducts, setContact } = useServerContext()
-  const [remissionNumber, setRemissionNumber] = useState('')
+  const [remissionNumber, setRemissionNumber] = useState('800')
   const [hasError, setHasError] = useState(false)
 
   const handleClick = async () => {

@@ -3,6 +3,7 @@ import LogoImage from "@/components/LogoImage";
 import Search from "@/components/Search";
 import {useServerContext} from "@/app/provider";
 import HeaderWithImage from "@/components/Headers/HeaderImage";
+import { OrderCard } from "./card/Card"
 
 export default function Header() {
   const {productsCart} = useServerContext()
@@ -17,7 +18,9 @@ export default function Header() {
           </div>
         </div>
       ) : (
-        <HeaderWithImage>
+        <HeaderWithImage >
+          <OrderCard remissionNumber={""} />
+          
           <Search customClass="sm:py-4 sm:px-5 sm:text-lg"/>
         </HeaderWithImage>
       )}

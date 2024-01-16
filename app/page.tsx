@@ -25,7 +25,7 @@ export default async function Shopping({searchParams}: Props) {
 
   const id = desencryptHash(searchParams.id ?? '', SECRET_WORD!, IV!)
   const {data: contact, error}: { data: Contact[] | null, error: PostgrestError | null } = await supabase.from("alegra_contacts").select('*').eq('id_contact', id);
-
+  console.log(error)
   //Return Component error when obtain supabase error
   if(error) return <ErrorUser msg="Ha ocurrido un error cuando intentamos traer los datos." url={urlToRedirect} />
   if (!contact) return <Spinner size="lg" color="primary" />
